@@ -9,7 +9,13 @@ source /etc/os-release
 # Wine
 dpkg --add-architecture i386
 
+mkdir -pm755 /etc/apt/keyrings
+wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+
 apt-get -qq update
+
+apt-get -qq install --no-install-recommends --yes winehq-devel=9.6~jammy-1 wine-devel=9.6~jammy-1 wine-devel-amd64=9.6~jammy-1 wine-devel-i386=9.6~jammy-1
 
 PACKAGES=()
 
@@ -89,9 +95,6 @@ PACKAGES+=(p7zip-full)
 #     orc install --test toolchain/win32-vc16/vc
 #
 PACKAGES+=(winbind)
-PACKAGES+=(wine)
-PACKAGES+=(wine32)
-PACKAGES+=(wine64)
 
 #
 # vscode-web runtime dependencies
